@@ -192,7 +192,37 @@
     @apply opacity-0 translate-y-8 transition-all duration-700;
   }
 
-  .scroll-fade-in.visible {
-    @apply opacity-100 translate-y-0;
+  /* Counter Animation */
+  @keyframes countUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .counter-animate {
+    animation: countUp 0.6s ease-out forwards;
+  }
+
+  /* Mobile Scroll Cards */
+  @media (max-width: 768px) {
+    .scroll-fade-in {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }

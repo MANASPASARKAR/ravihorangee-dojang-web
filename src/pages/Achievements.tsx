@@ -1,4 +1,5 @@
 import Navigation from "@/components/Navigation";
+import MobileNavigation from "@/components/MobileNavigation";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -68,12 +69,13 @@ const Achievements = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
+      <MobileNavigation />
       
       {/* Hero Section */}
       <section className="pt-24 pb-16 bg-gradient-to-r from-primary/10 to-secondary/10">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
-            Achievements & Events
+            Achievements and Events
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Celebrating excellence, hosting competitions, and building community through martial arts

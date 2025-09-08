@@ -1,4 +1,5 @@
 import Navigation from "@/components/Navigation";
+import MobileNavigation from "@/components/MobileNavigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
@@ -7,6 +8,7 @@ const About = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
+      <MobileNavigation />
       
       {/* Hero Section */}
       <section className="pt-24 pb-16 bg-gradient-to-r from-primary/10 to-secondary/10">

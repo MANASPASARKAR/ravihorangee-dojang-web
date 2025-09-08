@@ -14,11 +14,11 @@ const Navigation = () => {
     { path: "/", label: "Home" },
     { path: "/about", label: "About" },
     { path: "/coaches", label: "Coaches" },
-    { path: "/achievements", label: "Achievements" },
+    { path: "/achievements", label: "Achievements and Events" },
   ];
 
   return (
-    <nav className="fixed top-0 w-full bg-background/95 backdrop-blur-sm border-b border-border z-50">
+    <nav className="hidden md:block fixed top-0 w-full bg-background/95 backdrop-blur-sm border-b border-border z-50">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo and Academy Name */}

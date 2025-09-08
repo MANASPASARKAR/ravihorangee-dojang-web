@@ -1,4 +1,7 @@
 import Navigation from "@/components/Navigation";
+import MobileNavigation from "@/components/MobileNavigation";
+import MobileSectionCards from "@/components/MobileSectionCards";
+import AnimatedCounters from "@/components/AnimatedCounters";
 import BookingModal from "@/components/BookingModal";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -33,6 +36,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
+      <MobileNavigation />
       
       {/* Hero Section */}
       <section className="hero-section">
@@ -78,6 +82,12 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Animated Counters */}
+      <AnimatedCounters />
+
+      {/* Mobile Section Cards */}
+      <MobileSectionCards />
 
       {/* Why Choose RB Horangee */}
       <section className="py-20 bg-background">
@@ -271,7 +281,7 @@ const Index = () => {
               <ul className="space-y-2 text-sm">
                 <li><a href="/about" className="text-white/70 hover:text-white transition-colors">About Us</a></li>
                 <li><a href="/coaches" className="text-white/70 hover:text-white transition-colors">Coaches</a></li>
-                <li><a href="/achievements" className="text-white/70 hover:text-white transition-colors">Achievements</a></li>
+                <li><a href="/achievements" className="text-white/70 hover:text-white transition-colors">Achievements and Events</a></li>
               </ul>
             </div>
             
