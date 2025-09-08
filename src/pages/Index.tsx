@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import heroImage from "@/assets/hero-coach.jpg";
 import { ArrowRight, Shield, Trophy, Users, Heart } from "lucide-react";
 import { useState, useEffect } from "react";
+import raviSirImg from "@/assets/ravi-sir-img.png";
 
 const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -176,14 +177,14 @@ const Index = () => {
               <div className="relative">
                 <div className="aspect-square rounded-2xl overflow-hidden">
                   <img
-                    src={heroImage}
+                    src={raviSirImg}
                     alt="Master Ravindra Bhandari"
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-primary to-secondary p-4 rounded-xl text-white">
-                  <p className="font-bold">8th Dan Black Belt</p>
-                  <p className="text-sm opacity-90">20+ Years Experience</p>
+                  <p className="font-bold">6th Dan Black Belt</p>
+                  <p className="text-sm opacity-90">15+ Years Experience</p>
                 </div>
               </div>
             </div>

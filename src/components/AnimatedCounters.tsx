@@ -67,23 +67,23 @@ const AnimatedCounter = ({ end, duration, label, suffix = "", delay = 0 }: Count
 const AnimatedCounters = () => {
   const counters = [
     {
-      end: 500,
+      end: 4000,
       duration: 2000,
       label: "Students Trained",
       suffix: "+",
       delay: 0
     },
     {
-      end: 150,
+      end: 1670,
       duration: 2200,
       label: "Black Belts",
       suffix: "+",
       delay: 200
     },
     {
-      end: 250,
+      end: 80,
       duration: 2400,
-      label: "Medals Won",
+      label: "Intl. Medals Won",
       suffix: "+",
       delay: 400
     }
