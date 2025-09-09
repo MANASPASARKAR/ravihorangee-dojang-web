@@ -85,45 +85,33 @@ const About = () => {
                       <th className="text-left py-3 px-4">Day</th>
                       <th className="text-left py-3 px-4">Time</th>
                       <th className="text-left py-3 px-4">Type</th>
-                      <th className="text-left py-3 px-4">Age Group</th>
+                      {/* <th className="text-left py-3 px-4">Age Group</th> */}
                     </tr>
                   </thead>
                   <tbody>
                     <tr className="border-b">
                       <td className="py-3 px-4 font-medium">Monday</td>
-                      <td className="py-3 px-4">6:00 - 7:30 PM</td>
-                      <td className="py-3 px-4">Basic Training</td>
-                      <td className="py-3 px-4">Kids (6-12)</td>
-                    </tr>
-                    <tr className="border-b">
-                      <td className="py-3 px-4 font-medium">Tuesday</td>
-                      <td className="py-3 px-4">7:30 - 9:00 PM</td>
-                      <td className="py-3 px-4">Advanced Training</td>
-                      <td className="py-3 px-4">Adults (13+)</td>
+                      <td className="py-3 px-4">7:00 - 8:30 PM</td>
+                      <td className="py-3 px-4">Basic Training + Poomsae Practice</td>
+                      {/* <td className="py-3 px-4">Kids (6-12)</td> */}
                     </tr>
                     <tr className="border-b">
                       <td className="py-3 px-4 font-medium">Wednesday</td>
-                      <td className="py-3 px-4">6:00 - 7:30 PM</td>
-                      <td className="py-3 px-4">Poomsae Practice</td>
-                      <td className="py-3 px-4">All Ages</td>
-                    </tr>
-                    <tr className="border-b">
-                      <td className="py-3 px-4 font-medium">Thursday</td>
-                      <td className="py-3 px-4">7:30 - 9:00 PM</td>
-                      <td className="py-3 px-4">Competition Prep</td>
-                      <td className="py-3 px-4">Advanced Students</td>
+                      <td className="py-3 px-4">7:00 - 8:30 PM</td>
+                      <td className="py-3 px-4">Basic Training + Kyorugi Practice</td>
+                      {/* <td className="py-3 px-4">All Ages</td> */}
                     </tr>
                     <tr className="border-b">
                       <td className="py-3 px-4 font-medium">Friday</td>
-                      <td className="py-3 px-4">6:00 - 8:00 PM</td>
-                      <td className="py-3 px-4">Open Training</td>
-                      <td className="py-3 px-4">All Levels</td>
+                      <td className="py-3 px-4">7:00 - 8:30 PM</td>
+                      <td className="py-3 px-4">Basic Training + Poomsae Practice</td>
+                      {/* <td className="py-3 px-4">All Levels</td> */}
                     </tr>
                     <tr>
                       <td className="py-3 px-4 font-medium">Saturday</td>
-                      <td className="py-3 px-4">9:00 - 11:00 AM</td>
-                      <td className="py-3 px-4">Special Seminars</td>
-                      <td className="py-3 px-4">All Ages</td>
+                      <td className="py-3 px-4">7:30 - 9:00 PM</td>
+                      <td className="py-3 px-4">Basic Training + Kyorugi Practice</td>
+                      {/* <td className="py-3 px-4">All Ages</td> */}
                     </tr>
                   </tbody>
                 </table>

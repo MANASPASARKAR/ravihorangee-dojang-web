@@ -185,7 +185,7 @@ const Index = () => {
                 </div>
                 <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-primary to-secondary p-4 rounded-xl text-white">
                   <p className="font-bold">6th Dan Black Belt</p>
-                  <p className="text-sm opacity-90">15+ Years Experience</p>
+                  <p className="text-sm opacity-90">20+ Years Experience</p>
                 </div>
               </div>
             </div>
