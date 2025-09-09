@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import BookingModal from "./BookingModal";
 import { useState } from "react";
+import logo from "@/assets/logo.png";
 
 const Navigation = () => {
   const location = useLocation();
@@ -23,8 +24,12 @@ const Navigation = () => {
         <div className="flex items-center justify-between">
           {/* Logo and Academy Name */}
           <Link to="/" className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">RB</span>
+            <div className="w-12 h-12 from-primary to-secondary rounded-lg flex items-center justify-center">
+              <img
+                src={logo}
+                alt="RB Horangee Do-Jang Logo"
+                className="w-10 h-10 object-contain"
+              />
             </div>
             <div>
               <h1 className="text-xl font-bold text-foreground">RB Horangee Do-Jang</h1>

@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Menu, X } from "lucide-react";
 import BookingModal from "./BookingModal";
+import logo from "@/assets/logo.png";
 
 const MobileNavigation = () => {
   const location = useLocation();
@@ -26,9 +27,11 @@ const MobileNavigation = () => {
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">RB</span>
-              </div>
+              <img
+                src={logo}
+                alt="RB Horangee Do-Jang Logo"
+                className="w-10 h-10 object-contain"
+              />
               <span className="font-bold text-foreground text-sm">RB Horangee</span>
             </Link>
             

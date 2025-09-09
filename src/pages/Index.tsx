@@ -51,9 +51,9 @@ const Index = () => {
         </div>
         
         <div className="hero-content container mx-auto px-4">
-          <Badge className="mb-6 bg-white/20 text-white border-white/30">
+          {/* <Badge className="mb-6 bg-white/20 text-white border-white/30">
             Head Coach: Ravindra Bhandari (Ravi Sir)
-          </Badge>
+          </Badge> */}
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
             RB Horangee<br />
             <span className="text-primary-glow">Do-Jang Association</span>
@@ -152,7 +152,7 @@ const Index = () => {
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
-                <Badge className="mb-4 bg-primary/10 text-primary">Master Instructor</Badge>
+                {/* <Badge className="mb-4 bg-primary/10 text-primary">Master Instructor</Badge> */}
                 <h2 className="text-4xl font-bold text-foreground mb-6">
                   Meet Master Ravindra Bhandari
                 </h2>
