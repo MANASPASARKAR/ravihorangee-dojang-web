@@ -26,29 +26,58 @@ const BookingModal = ({ isOpen, onClose, type }: BookingModalProps) => {
     message: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Here you would typically send the data to your backend
-    toast({
-      title: type === "trial" ? "Free Trial Booked!" : "CSR Inquiry Sent!",
-      description: type === "trial" 
-        ? "We'll contact you within 24 hours to schedule your free trial class."
-        : "Thank you for your CSR inquiry. We'll get back to you soon.",
-    });
-    
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      age: "",
-      experience: "",
-      preferredTime: "",
-      message: ""
-    });
-    
-    onClose();
+
+    // Build the message body
+    const messageBody =
+      type === "trial"
+        ? `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nAge: ${formData.age}\nExperience: ${formData.experience}\nPreferred Time: ${formData.preferredTime}\nMessage: ${formData.message}`
+        : `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nMessage: ${formData.message}`;
+
+    try {
+      const response = await fetch("http://localhost:5000/api/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: messageBody,
+        }),
+      });
+
+      if (response.ok) {
+        toast({
+          title: type === "trial" ? "Free Trial Booked!" : "CSR Inquiry Sent!",
+          description:
+            type === "trial"
+              ? "We'll contact you within 24 hours to schedule your free trial class."
+              : "Thank you for your CSR inquiry. We'll get back to you soon.",
+        });
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          age: "",
+          experience: "",
+          preferredTime: "",
+          message: "",
+        });
+        onClose();
+      } else {
+        toast({
+          title: "Error",
+          description: "There was a problem sending your request. Please try again.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "There was a problem sending your request. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -81,7 +110,7 @@ const BookingModal = ({ isOpen, onClose, type }: BookingModalProps) => {
               <div>
                 <h3 className="font-semibold text-foreground mb-2">What to expect in your free trial:</h3>
                 <ul className="text-sm text-muted-foreground space-y-1">
-                  <li>• 60-minute introductory class with Master Ravi Sir</li>
+                  <li>• 90-minute introductory class with Master Ravi Sir</li>
                   <li>• Basic Taekwondo techniques and philosophy</li>
                   <li>• Assessment of your current fitness level</li>
                   <li>• Personalized training plan discussion</li>
@@ -169,16 +198,16 @@ const BookingModal = ({ isOpen, onClose, type }: BookingModalProps) => {
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor="preferredTime">Preferred Class Time</Label>
+                  <Label htmlFor="preferredTime">Preferred Day</Label>
                   <Select onValueChange={(value) => handleInputChange("preferredTime", value)}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select preferred time" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="morning">Morning (9-11 AM)</SelectItem>
-                      <SelectItem value="afternoon">Afternoon (2-4 PM)</SelectItem>
-                      <SelectItem value="evening">Evening (6-8 PM)</SelectItem>
-                      <SelectItem value="weekend">Weekend</SelectItem>
+                      <SelectItem value="morning">Monday (7:00pm to 8.30pm)</SelectItem>
+                      <SelectItem value="afternoon">Wednesday (7:00pm to 8.30pm)</SelectItem>
+                      <SelectItem value="evening">Friday (7:00pm to 8.30pm)</SelectItem>
+                      <SelectItem value="weekend">Saturday (7:30pm to 9.00pm)</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

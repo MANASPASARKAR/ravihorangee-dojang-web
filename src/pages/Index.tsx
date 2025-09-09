@@ -10,6 +10,7 @@ import heroImage from "@/assets/hero-coach.jpg";
 import { ArrowRight, Shield, Trophy, Users, Heart } from "lucide-react";
 import { useState, useEffect } from "react";
 import raviSirImg from "@/assets/ravi-sir-img.png";
+import logo from "@/assets/logo.png";
 
 const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -42,11 +43,11 @@ const Index = () => {
       {/* Hero Section */}
       <section className="hero-section">
         <div className="absolute inset-0">
-          <img
+          {/* <img
             src={heroImage}
             alt="Master Ravi Sir"
             className="w-full h-full object-cover opacity-20"
-          />
+          /> */}
           <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-secondary/80"></div>
         </div>
         
@@ -124,7 +125,7 @@ const Index = () => {
             </Card>
             
             <Card className="martial-card text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto mb-6 flex items-center justify-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-primary to-primary-glow rounded-full mx-auto mb-6 flex items-center justify-center">
                 <Users className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold mb-4">National Competitions</h3>
@@ -134,7 +135,7 @@ const Index = () => {
             </Card>
             
             <Card className="martial-card text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-secondary to-primary rounded-full mx-auto mb-6 flex items-center justify-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-secondary to-secondary-glow rounded-full mx-auto mb-6 flex items-center justify-center">
                 <Heart className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold mb-4">Community Outreach</h3>
@@ -259,8 +260,9 @@ const Index = () => {
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold">RB</span>
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center">
+                  <img src={logo} alt="Logo" />
+                  {/* <span className="text-white font-bold">RB</span> */}
                 </div>
                 <div>
                   <h3 className="font-bold">RB Horangee Do-Jang</h3>
@@ -270,11 +272,12 @@ const Index = () => {
             </div>
             
             <div>
-              <h4 className="font-bold mb-4">Contact</h4>
-              <p className="text-white/70 text-sm mb-2">123 Martial Arts Street</p>
-              <p className="text-white/70 text-sm mb-2">City, State 12345</p>
-              <p className="text-white/70 text-sm mb-2">+1 (555) 123-4567</p>
-              <p className="text-white/70 text-sm">info@rbhorangee.com</p>
+              <h4 className="font-bold mb-4">Contact Us</h4>
+              <p className="text-white/70 text-sm mb-2">📍 Kidz Kingdom School, 62, Kharadkar Nagar</p>
+              <p className="text-white/70 text-sm mb-2">Sainikwadi, Wadgaon Sheri, Pune</p>
+              <p className="text-white/70 text-sm mb-2">Maharashtra, India - 411014</p>
+              <p className="text-white/70 text-sm mb-2">📞 +91 97678 93261</p>
+              <p className="text-white/70 text-sm">📧 rbhorangee@gmail.com</p>
             </div>
             
             <div>
@@ -304,7 +307,7 @@ const Index = () => {
           
           <div className="border-t border-white/20 mt-8 pt-8 text-center">
             <p className="text-white/70 text-sm">
-              © 2024 RB Horangee Do-Jang Association. All rights reserved.
+              © 2025 RB Horangee Do-Jang Association. All rights reserved.
             </p>
           </div>
         </div>

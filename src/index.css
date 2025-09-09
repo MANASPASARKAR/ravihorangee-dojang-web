@@ -19,14 +19,14 @@
     --popover-foreground: 0 0% 8%;
 
     /* Martial Arts Red - Primary Brand */
-    --primary: 0 75% 50%;
+    --primary: 0 100% 50%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 0 75% 65%;
+    --primary-glow: 0 100% 65%;
 
     /* Royal Blue - Secondary Brand */
-    --secondary: 220 85% 55%;
+    --secondary: 220 100% 55%;
     --secondary-foreground: 0 0% 100%;
-    --secondary-glow: 220 85% 70%;
+    --secondary-glow: 220 100% 70%;
 
     /* Neutral Tones */
     --muted: 0 0% 96%;
