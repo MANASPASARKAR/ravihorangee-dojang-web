@@ -45,26 +45,26 @@ const Achievements = () => {
     }
   ];
 
-  const events = [
-    {
-      title: "Master Class Workshop",
-      date: "March 2024",
-      type: "Workshop",
-      description: "Advanced techniques seminar with international masters"
-    },
-    {
-      title: "Community Self-Defense Course",
-      date: "February 2024",
-      type: "Outreach",
-      description: "Free self-defense classes for local community members"
-    },
-    {
-      title: "National Championships 2024",
-      date: "May 2024",
-      type: "Upcoming",
-      description: "Our students will compete in the national championships"
-    }
-  ];
+  // const events = [
+  //   {
+  //     title: "Master Class Workshop",
+  //     date: "March 2024",
+  //     type: "Workshop",
+  //     description: "Advanced techniques seminar with international masters"
+  //   },
+  //   {
+  //     title: "Community Self-Defense Course",
+  //     date: "February 2024",
+  //     type: "Outreach",
+  //     description: "Free self-defense classes for local community members"
+  //   },
+  //   {
+  //     title: "National Championships 2024",
+  //     date: "May 2024",
+  //     type: "Upcoming",
+  //     description: "Our students will compete in the national championships"
+  //   }
+  // ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -75,7 +75,7 @@ const Achievements = () => {
       <section className="pt-24 pb-16 bg-gradient-to-r from-primary/10 to-secondary/10">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
-            Achievements and Events
+            Achievements
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Celebrating excellence, hosting competitions, and building community through martial arts
@@ -87,10 +87,10 @@ const Achievements = () => {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <Tabs defaultValue="achievements" className="max-w-6xl mx-auto">
-            <TabsList className="grid w-full grid-cols-3 mb-12">
+            <TabsList className="grid w-full grid-cols-2 mb-12">
               <TabsTrigger value="achievements">Achievements</TabsTrigger>
               <TabsTrigger value="competitions">Competitions Hosted</TabsTrigger>
-              <TabsTrigger value="events">Events</TabsTrigger>
+              {/* <TabsTrigger value="events">Events</TabsTrigger> */}
             </TabsList>
 
             {/* Achievements Tab */}
@@ -149,23 +149,10 @@ const Achievements = () => {
                   </Card>
                 ))}
               </div>
-
-              <div className="text-center">
-                <Card className="martial-card max-w-md mx-auto">
-                  <h3 className="text-xl font-bold mb-4">Competition Highlights</h3>
-                  <p className="text-muted-foreground mb-6">
-                    Download our complete competition results and photo gallery
-                  </p>
-                  <Button variant="power" className="w-full">
-                    <Download className="w-4 h-4 mr-2" />
-                    Download PDF Report
-                  </Button>
-                </Card>
-              </div>
             </TabsContent>
 
             {/* Events Tab */}
-            <TabsContent value="events" className="space-y-8">
+            {/* <TabsContent value="events" className="space-y-8">
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {events.map((event, index) => (
                   <Card key={index} className="martial-card">
@@ -200,7 +187,7 @@ const Achievements = () => {
                   </Button>
                 </div>
               </div>
-            </TabsContent>
+            </TabsContent> */}
           </Tabs>
         </div>
       </section>

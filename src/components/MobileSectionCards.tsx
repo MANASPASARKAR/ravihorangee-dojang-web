@@ -20,7 +20,7 @@ const MobileSectionCards = () => {
     //   color: "from-secondary to-secondary-glow"
     // },
     {
-      title: "Achievements and Events Section",
+      title: "Achievements Section",
       description: "Discover our competition successes, hosted tournaments, and upcoming events.",
       icon: Trophy,
       link: "/achievements",

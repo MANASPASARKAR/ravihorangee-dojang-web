@@ -288,7 +288,7 @@ const Index = () => {
               <ul className="space-y-2 text-sm">
                 <li><a href="/about" className="text-white/70 hover:text-white transition-colors">About Us</a></li>
                 {/* <li><a href="/coaches" className="text-white/70 hover:text-white transition-colors">Coaches</a></li> */}
-                <li><a href="/achievements" className="text-white/70 hover:text-white transition-colors">Achievements and Events</a></li>
+                <li><a href="/achievements" className="text-white/70 hover:text-white transition-colors">Achievements</a></li>
               </ul>
             </div>
             
