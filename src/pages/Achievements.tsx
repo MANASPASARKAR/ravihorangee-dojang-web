@@ -33,14 +33,20 @@ const Achievements = () => {
   const competitions = [
     {
       title: "RB Horangee National Open",
+      year: "2023",
+      participants: "1100+",
+      description: "Annual national championship hosted by our academy"
+    },
+    {
+      title: "RB Horangee National Open",
       year: "2024",
-      participants: "500+",
+      participants: "1300+",
       description: "Annual national championship hosted by our academy"
     },
     {
       title: "RB Horangee National Open",
       year: "2025",
-      participants: "500+",
+      participants: "1700+",
       description: "Annual national championship hosted by our academy"
     }
     // {

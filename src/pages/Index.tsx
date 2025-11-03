@@ -312,7 +312,7 @@ const Index = () => {
                   <img src={ig} alt="instagram" className="w-full h-full object-cover block" />
                 </a>
                 <a
-                  href="https://linkedin.com/in/yourprofile"
+                  href="http://www.linkedin.com/in/RB-HORANGEE"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center"
