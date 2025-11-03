@@ -38,11 +38,17 @@ const Achievements = () => {
       description: "Annual national championship hosted by our academy"
     },
     {
-      title: "Inter-State Youth Championships",
-      year: "2023",
-      participants: "300+",
-      description: "Regional competition focusing on youth development"
+      title: "RB Horangee National Open",
+      year: "2025",
+      participants: "500+",
+      description: "Annual national championship hosted by our academy"
     }
+    // {
+    //   title: "State Level Taekwondo Meet",
+    //   year: "2022",
+    //   participants: "200+",
+    //   description: "A prestigious state-level event for young martial artists."
+    // }
   ];
 
   // const events = [
@@ -121,9 +127,9 @@ const Achievements = () => {
                     <Card key={item} className="martial-card group cursor-pointer">
                       <div className="aspect-video   bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg flex items-center justify-center relative overflow-hidden">
                         <Medal className="w-12 h-12 text-primary/60 group-hover:scale-110 transition-transform duration-300" />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                          <Play className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        </div>
+                        {/* <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center"> */}
+                          {/* <Play className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" /> */}
+                        {/* </div> */}
                       </div>
                     </Card>
                   ))}
