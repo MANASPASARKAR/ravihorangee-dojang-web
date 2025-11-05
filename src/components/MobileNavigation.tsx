@@ -18,6 +18,7 @@ const MobileNavigation = () => {
     { path: "/about", label: "About" },
     // { path: "/coaches", label: "Coaches" },
     { path: "/achievements", label: "Achievements" },
+    { path: "/gallery", label: "Gallery" },
   ];
 
   return (

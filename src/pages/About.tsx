@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import MobileNavigation from "@/components/MobileNavigation";
+import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
@@ -61,13 +62,13 @@ const About = () => {
                     <tr className="border-b">
                       <td className="py-3 px-4 font-medium">Monday</td>
                       <td className="py-3 px-4">7:00 - 8:30 PM</td>
-                      <td className="py-3 px-4">Basic Training + Poomsae Practice</td>
+                      <td className="py-3 px-4">Basic Training + Poomsae Practice + Happkido practice</td>
                       {/* <td className="py-3 px-4">Kids (6-12)</td> */}
                     </tr>
                     <tr className="border-b">
                       <td className="py-3 px-4 font-medium">Wednesday</td>
                       <td className="py-3 px-4">7:00 - 8:30 PM</td>
-                      <td className="py-3 px-4">Basic Training + Kyorugi Practice</td>
+                      <td className="py-3 px-4">Basic Training + Kyorugi Practice + self-defence practice</td>
                       {/* <td className="py-3 px-4">All Ages</td> */}
                     </tr>
                     <tr className="border-b">
@@ -79,7 +80,7 @@ const About = () => {
                     <tr>
                       <td className="py-3 px-4 font-medium">Saturday</td>
                       <td className="py-3 px-4">7:30 - 9:00 PM</td>
-                      <td className="py-3 px-4">Basic Training + Kyorugi Practice</td>
+                      <td className="py-3 px-4">Basic Training + Kyorugi Practice + Gymnastics Practice</td>
                       {/* <td className="py-3 px-4">All Ages</td> */}
                     </tr>
                   </tbody>
@@ -172,6 +173,9 @@ const About = () => {
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

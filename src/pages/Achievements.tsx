@@ -1,9 +1,10 @@
 import Navigation from "@/components/Navigation";
 import MobileNavigation from "@/components/MobileNavigation";
+import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Trophy, Medal, Star, Calendar, Download, Play } from "lucide-react";
+import { Trophy, Medal, Star, Calendar, Download, Play, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import heroImage from "@/assets/hero-coach.jpg"; // Update with your competition images
 
@@ -197,7 +198,7 @@ const Achievements = () => {
                   </h3>
                   
                   <div className="max-w-4xl mx-auto relative">
-                    <div className="aspect-video rounded-2xl overflow-hidden relative">
+                    <div className="aspect-video rounded-2xl overflow-hidden relative group">
                       <img
                         src={competitionImages[currentSlide].src}
                         alt={competitionImages[currentSlide].alt}
@@ -209,6 +210,22 @@ const Achievements = () => {
                           {competitionImages[currentSlide].alt}
                         </h3>
                       </div>
+                      
+                      {/* Navigation Arrows */}
+                      <button
+                        onClick={() => setCurrentSlide((prev) => (prev - 1 + competitionImages.length) % competitionImages.length)}
+                        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full p-3 transition-all duration-300 opacity-0 group-hover:opacity-100"
+                        aria-label="Previous image"
+                      >
+                        <ChevronLeft className="w-6 h-6 text-white" />
+                      </button>
+                      <button
+                        onClick={() => setCurrentSlide((prev) => (prev + 1) % competitionImages.length)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full p-3 transition-all duration-300 opacity-0 group-hover:opacity-100"
+                        aria-label="Next image"
+                      >
+                        <ChevronRight className="w-6 h-6 text-white" />
+                      </button>
                     </div>
                     
                     {/* Carousel Indicators */}
@@ -270,6 +287,9 @@ const Achievements = () => {
           </Tabs>
         </div>
       </section>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
