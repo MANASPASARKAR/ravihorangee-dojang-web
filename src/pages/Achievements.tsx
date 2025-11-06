@@ -33,9 +33,9 @@ const Achievements = () => {
 
   const achievements = [
     {
-      title: "National Championship Gold",
-      year: "2024",
-      category: "Senior Poomsae",
+      title: "1st TIA open International Championship",
+      year: "2016",
+      category: "Poomsae and Kyourogi",
       recipient: "Ravi Sir",
       description: "First place in National Taekwondo Championships"
     },
