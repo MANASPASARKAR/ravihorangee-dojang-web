@@ -102,7 +102,7 @@ const Achievements = () => {
             </TabsList>
 
             <TabsContent value="achievements" className="space-y-8">
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
                 {achievements.map((achievement, index) => (
                   <Card key={index} className="martial-card">
                     <div className="flex items-start space-x-4">
@@ -200,4 +200,4 @@ const Achievements = () => {
   );
 };
 
-export default Achievements;
+export default Achievements;``
