@@ -12,7 +12,7 @@ const Gallery = () => {
   // Placeholder images - replace with actual imports once you add images
   const galleryCategories = {
     section1: {
-      name: "Section 1",
+      name: "Class Training",
       images: [
         // Add your images here like: { src: import_path, alt: "description" }
         { src: "", alt: "Gallery Image 1" },
@@ -24,7 +24,7 @@ const Gallery = () => {
       ]
     },
     section2: {
-      name: "Section 2",
+      name: "Newspaper clippings",
       images: [
         { src: "", alt: "Gallery Image 1" },
         { src: "", alt: "Gallery Image 2" },
@@ -35,7 +35,7 @@ const Gallery = () => {
       ]
     },
     section3: {
-      name: "Section 3",
+      name: "Competitions hosted",
       images: [
         { src: "", alt: "Gallery Image 1" },
         { src: "", alt: "Gallery Image 2" },
@@ -46,7 +46,7 @@ const Gallery = () => {
       ]
     },
     section4: {
-      name: "Section 4",
+      name: "Competitions played",
       images: [
         { src: "", alt: "Gallery Image 1" },
         { src: "", alt: "Gallery Image 2" },
