@@ -7,7 +7,7 @@ import { Camera } from "lucide-react";
 import { useState } from "react";
 
 //import images below.
-import image1_1 from "@/assets/gallery/section1/gal_comp_host_1.JPG"; // import all the images like this
+import image1_1 from "@/assets/gallery/section1/gal_comp_host (2).JPG"; // import all the images like this
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
