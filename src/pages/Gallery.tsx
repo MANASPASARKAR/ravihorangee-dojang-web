@@ -10,7 +10,7 @@ import Footer from "@/components/Footer";
  *
  * - Loads gallery images in batches (lazy import.meta.glob + IntersectionObserver)
  * - Displays a mobile-first section selector where the active section expands and
- *   inactive sections collapse to small circular buttons.
+ * inactive sections collapse to small circular buttons.
  * - Images fill cards edge-to-edge, use native lazy loading & async decoding.
  *
  * All code is contained in this file per requirements.
@@ -168,10 +168,11 @@ const Gallery: React.FC = () => {
   const [visibleRows, setVisibleRows] = useState<Set<number>>(new Set());
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   
-  // batch size
-  const BATCH_SIZE = 12;
-  // lazy loaders (do not use globEager)
-  const loaders = import.meta.glob("../assets/gallery/**/*.{jpg,jpeg,png,webp,svg,JPG,JPEG,PNG,WEBP}");
+  // batch size - reduced for faster initial load
+  const BATCH_SIZE = 6;
+
+  // *** Glob path is now specific to section3 ***
+  const loaders = import.meta.glob("../assets/gallery/section3/**/*.{jpg,jpeg,png,webp,svg,JPG,JPEG,PNG,WEBP}");
   const paths = Object.keys(loaders).sort();
 
   // Helper to get row size based on viewport
@@ -214,7 +215,8 @@ const Gallery: React.FC = () => {
       setLoadingRows(prev => new Set([...prev, rowIndex]));
 
       try {
-        const rowImages = await Promise.all(
+        // *** Use Promise.allSettled to prevent one bad image from breaking the row ***
+        const results = await Promise.allSettled(
           rowPaths.map(async (path) => {
             const mod = await (loaders as any)[path]();
             const src = (mod as any).default ?? mod;
@@ -235,11 +237,24 @@ const Gallery: React.FC = () => {
 
             return { 
               src, 
-              alt: path.split("/").pop() ?? "",
+              // *** Better default alt text ***
+              alt: "Competition gallery image",
               row: rowIndex 
             };
           })
         );
+
+        // Filter out only the successful images
+        const rowImages = results
+          .filter(res => res.status === 'fulfilled')
+          .map(res => (res as PromiseFulfilledResult<any>).value);
+        
+        // Log any images that failed to load
+        results.forEach(res => {
+          if (res.status === 'rejected') {
+            console.error("Failed to load an image:", res.reason);
+          }
+        });
 
         // Update gallery images without replacing existing ones
         setGalleryImages(prev => {
@@ -251,7 +266,8 @@ const Gallery: React.FC = () => {
         
         // Mark row as permanently rendered
         renderedRowsCache.current.set(rowIndex, true);
-        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        // *** Removed artificial 100ms delay ***
         setCompleteRows(prev => new Set([...prev, rowIndex]));
         setLoadingRows(prev => {
           const next = new Set(prev);
@@ -268,51 +284,126 @@ const Gallery: React.FC = () => {
         });
       }
     }
+  };
 
-    if (startIndex + BATCH_SIZE >= paths.length) {
+  // *** REFACTORED IO LOGIC ***
+  
+  // Refs for the intersection observer logic
+  const nextIndexRef = useRef<number>(BATCH_SIZE * 2); // Start from the 3rd batch (index 12)
+  const isLoadingRef = useRef<boolean>(false);
+  const ioRef = useRef<IntersectionObserver | null>(null);
+
+  // This is the function that does the work
+  const loadMoreImages = async () => {
+    // 1. Prevent double-loads
+    if (isLoadingRef.current || allLoaded) return;
+  
+    // 2. Set loading flag
+    isLoadingRef.current = true;
+  
+    // 3. Load the batch
+    await loadBatch(nextIndexRef.current);
+  
+    // 4. Update the index
+    nextIndexRef.current += BATCH_SIZE;
+  
+    // 5. Check if we're done
+    if (nextIndexRef.current >= paths.length) {
       setAllLoaded(true);
-      setIsInitialLoad(false);
+      if (ioRef.current) {
+        ioRef.current.disconnect();
+      }
+      isLoadingRef.current = false;
+      return;
+    }
+  
+    // 6. Unset loading flag
+    isLoadingRef.current = false;
+  
+    // 7. *** THE FIX ***
+    // After loading, check if the sentinel is *still* on screen.
+    // If it is, manually call this function again to keep loading.
+    if (sentinelRef.current) {
+      const sentinelTop = sentinelRef.current.getBoundingClientRect().top;
+      const viewportHeight = window.innerHeight;
+      // If sentinel is still within the "trigger zone" (viewport + 400px margin)
+      if (sentinelTop <= (viewportHeight + 400)) {
+        // Use setTimeout to avoid a potential recursive stack overflow on fast loads
+        setTimeout(loadMoreImages, 100); 
+      }
     }
   };
 
-  // initial batch + intersection observer to load more on scroll
+  // initial batch load (Loads first 12 images)
   useEffect(() => {
     let mounted = true;
-    let nextIndex = 0;
     (async () => {
       if (!mounted) return;
-      await loadBatch(nextIndex);
-      nextIndex += BATCH_SIZE;
-
-      const el = sentinelRef.current;
-      if (!el) return;
-      if (nextIndex >= paths.length) return;
-
-      const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach(async (entry) => {
-            if (entry.isIntersecting) {
-              await loadBatch(nextIndex);
-              nextIndex += BATCH_SIZE;
-              if (nextIndex >= paths.length) io.disconnect();
-            }
-          });
-        },
-        { rootMargin: "800px" } // increased margin to load earlier
-      );
-      io.observe(el);
+      // Load the first 2 batches to fill the screen
+      await loadBatch(0);
+      await loadBatch(BATCH_SIZE);
     })();
 
     return () => {
       mounted = false;
     };
-  }, []);
+  }, []); // Empty array [] means this runs ONCE on mount
+
+  // This new effect handles the "load more" on scroll
+  useEffect(() => {
+    // If we're not on section3, or if all images are loaded, do nothing.
+    if (activeSection !== 'section3' || allLoaded) {
+      return;
+    }
+  
+    const el = sentinelRef.current;
+    if (!el) {
+      return;
+    }
+  
+    // Reset logic for when tabs change
+    nextIndexRef.current = BATCH_SIZE * 2;
+    isLoadingRef.current = false;
+  
+    const io = new IntersectionObserver(
+      (entries) => {
+        // If it's intersecting, call our aggressive loader
+        if (entries[0].isIntersecting) {
+          loadMoreImages(); 
+        }
+      },
+      { rootMargin: "400px" } // load just before scrolling into view
+    );
+  
+    io.observe(el);
+    ioRef.current = io; // Save IO to ref
+  
+    // *** ALSO PART OF THE FIX ***
+    // Manually check *once* on setup, in case it's already visible
+    // This kick-starts the `loadMoreImages` loop
+    setTimeout(() => {
+      if (sentinelRef.current) {
+        const sentinelTop = sentinelRef.current.getBoundingClientRect().top;
+        const viewportHeight = window.innerHeight;
+        if (sentinelTop <= (viewportHeight + 400)) {
+          loadMoreImages();
+        }
+      }
+    }, 200); // Give a slight delay for layout to settle
+  
+    // Cleanup
+    return () => {
+      io.disconnect();
+      ioRef.current = null;
+    };
+    
+  }, [activeSection, allLoaded]); // Dependencies are correct
 
   // gallery categories: section3 uses lazy-loaded images
   const galleryCategories = {
     section1: {
       id: "section1",
-      name: "Class Training",
+      name: "Class",
       images: [
         { src: "", alt: "Training 1" },
         { src: "", alt: "Training 2" },
@@ -390,21 +481,25 @@ const Gallery: React.FC = () => {
                     >
                       <div className="relative w-full aspect-video overflow-hidden 
                                     bg-gradient-to-br from-primary/5 to-secondary/5">
-                        {isImageLoaded ? (
-                          <img
-                            src={image.src}
-                            alt={image.alt}
-                            loading="lazy"
-                            decoding="async"
-                            draggable={false}
-                            className="absolute inset-0 w-full h-full object-cover 
-                                     transition-all duration-300 group-hover:scale-105"
-                          />
+                        {image.src ? (
+                          isImageLoaded ? (
+                            <img
+                              src={image.src}
+                              alt={image.alt}
+                              loading="lazy"
+                              decoding="async"
+                              draggable={false}
+                              className="absolute inset-0 w-full h-full object-cover 
+                                       transition-all duration-300 group-hover:scale-105"
+                            />
+                          ) : (
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <div className="w-8 h-8 border-2 border-primary/30 
+                                            border-t-primary/80 rounded-full animate-spin" />
+                            </div>
+                          )
                         ) : (
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-8 h-8 border-2 border-primary/30 
-                                          border-t-primary/80 rounded-full animate-spin" />
-                          </div>
+                          <Camera className="w-12 h-12 text-primary/40" />
                         )}
                         <div className="absolute inset-0 bg-black/0 
                                       group-hover:bg-black/10 transition-colors duration-300" />
@@ -418,7 +513,7 @@ const Gallery: React.FC = () => {
         </div>
 
         {/* Loading indicator - align with grid gap */}
-        {!allLoaded && loadingRows.size > 0 && (
+        {!allLoaded && (
           <div className="pt-6"> {/* Match grid gap-6 */}
             <div className="inline-flex items-center gap-2 text-sm text-gray-500">
               <div className="w-4 h-4 border-2 border-primary/30 border-t-primary/80 
@@ -477,7 +572,23 @@ const Gallery: React.FC = () => {
           className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
           onClick={() => setSelectedImage(null)}
         >
-          {/* ...existing modal content... */}
+          {/* Add a close button that's easier to hit */}
+          <button 
+            className="absolute top-4 right-4 text-white text-5xl z-20"
+            aria-label="Close modal"
+          >
+            &times;
+          </button>
+          
+          {/* Stop click propagation on the image itself */}
+          <div className="relative" onClick={(e) => e.stopPropagation()}>
+            <img 
+              src={selectedImage} 
+              alt="Selected gallery" 
+              className="max-h-[90vh] max-w-[90vw] object-contain"
+            />
+          </div>
+
         </div>
       )}
     </div>
