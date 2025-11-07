@@ -32,24 +32,38 @@ const Achievements = () => {
 
   const achievements = [
     {
-      title: "1st TIA open International Championship",
+      title: "1st TIA open International Championship, Kolkata",
       year: "2016",
       category: "Poomsae and Kyourogi",
-      recipient: "Ravi Sir",
-      description: "First place in National Taekwondo Championships"
+      recipient: "8 gold, 12 silver, 12 bronze medals",
+      description: "First International Championship we played in"
     },
     {
-      title: "Regional Tournament Victory",
-      year: "2024",
-      category: "Youth Sparring",
-      recipient: "Student Champion 1",
-      description: "Gold medal in under-18 category"
+      title: "Hyderabad",
+      year: "2016",
+      category: "Poomsae and Kyourogi",
+      recipient: "8 gold, 12 silver, 12 bronze medals",
+      description: "Lorem ipsum"
     },
     {
-      title: "Academy Excellence Award",
-      year: "2023",
-      category: "Institution",
-      recipient: "RB Horangee Do-Jang",
+      title: "1st Open National championship, Pune",
+      year: "2017",
+      category: "Poomsae and Kyourogi",
+      recipient: "12 Gold, 12 Silver, 12 bronze",
+      description: "Recognized for outstanding contribution to martial arts"
+    },
+    {
+      title: "2nd Open National championship, Pune",
+      year: "2018",
+      category: "Poomsae and Kyourogi",
+      recipient: "12 Gold, 12 Silver, 12 bronze",
+      description: "Recognized for outstanding contribution to martial arts"
+    },
+    {
+      title: "3rd Open National championship, Pune",
+      year: "2019",
+      category: "Poomsae and Kyourogi",
+      recipient: "12 Gold, 12 Silver, 12 bronze",
       description: "Recognized for outstanding contribution to martial arts"
     }
   ];
