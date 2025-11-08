@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+ import { Link } from "react-router-dom";
 import { Card } from "./ui/card";
 import { Button } from "./ui/button";
-import { ArrowRight, Users, Trophy, Info } from "lucide-react";
+import { ArrowRight, Users, Trophy, Info, Image } from "lucide-react";
 
 const MobileSectionCards = () => {
   const sectionCards = [
@@ -25,6 +25,13 @@ const MobileSectionCards = () => {
       icon: Trophy,
       link: "/achievements",
       color: "from-primary to-secondary"
+    },
+    {
+      title: "Gallery Section",
+      description: "Browse photos from our training sessions, competitions, and community events.",
+      icon: Image,
+      link: "/gallery",
+      color: "from-secondary to-secondary-glow"
     }
   ];
 
