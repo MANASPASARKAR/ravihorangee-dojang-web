@@ -2,6 +2,7 @@ import logo from "@/assets/logo.png";
 import fb from "@/assets/fb logo.png";
 import ig from "@/assets/ig logo.png";
 import li from "@/assets/linkedin.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -32,9 +33,9 @@ const Footer = () => {
           <div>
             <h4 className="font-bold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
-              <li><a href="../pages/About" className="text-white/70 hover:text-white transition-colors">About Us</a></li>
-              <li><a href="../pages/Achievements" className="text-white/70 hover:text-white transition-colors">Achievements</a></li>
-              <li><a href="../pages/Gallery" className="text-white/70 hover:text-white transition-colors">Gallery</a></li>
+              <li><Link to="/about" className="text-white/70 hover:text-white transition-colors">About Us</Link></li>
+              <li><Link to="/achievements" className="text-white/70 hover:text-white transition-colors">Achievements</Link></li>
+              <li><Link to="/gallery" className="text-white/70 hover:text-white transition-colors">Gallery</Link></li>
             </ul>
           </div>
           

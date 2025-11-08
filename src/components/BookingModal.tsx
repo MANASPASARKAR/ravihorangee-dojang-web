@@ -36,7 +36,8 @@ const BookingModal = ({ isOpen, onClose, type }: BookingModalProps) => {
         : `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nMessage: ${formData.message}`;
 
     try {
-      const response = await fetch("http://localhost:5000/api/send", {
+      // CHANGE FROM localhost:5000 TO RELATIVE PATH
+      const response = await fetch("/api/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -65,16 +66,17 @@ const BookingModal = ({ isOpen, onClose, type }: BookingModalProps) => {
         });
         onClose();
       } else {
+        const errorData = await response.json();
         toast({
           title: "Error",
-          description: "There was a problem sending your request. Please try again.",
+          description: errorData.error || "There was a problem sending your request. Please try again.",
           variant: "destructive",
         });
       }
     } catch (error) {
       toast({
         title: "Error",
-        description: "There was a problem sending your request. Please try again.",
+        description: "Network error. Please check your connection and try again.",
         variant: "destructive",
       });
     }
