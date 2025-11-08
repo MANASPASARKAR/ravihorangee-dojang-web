@@ -36,9 +36,8 @@ const BookingModal = ({ isOpen, onClose, type }: BookingModalProps) => {
         : `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nMessage: ${formData.message}`;
 
     try {
-      // CHANGE THIS TO YOUR RENDER SERVER URL
-      // Replace 'your-app-name' with your actual Render service name
-      const response = await fetch("https://ravihorangee-dojang-web-server.onrender.com", {
+      // ADD /api/send TO THE URL
+      const response = await fetch("https://ravihorangee-dojang-web-server.onrender.com/api/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
