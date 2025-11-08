@@ -6,6 +6,20 @@ import Navigation from "@/components/Navigation";
 import MobileNavigation from "@/components/MobileNavigation";
 import Footer from "@/components/Footer";
 
+// ADD THESE IMPORT STATEMENTS FOR SECTION 1 IMAGES
+// import section1_img1 from "@/assets/gallery/section1/Class_training (1).jpg";
+// import section1_img2 from "@/assets/gallery/section1/Class_training (2).jpg";
+// import section1_img3 from "@/assets/gallery/section1/Class_training (3).jpg";
+// import section1_img4 from "@/assets/gallery/section1/Class_training (4).jpg";
+// import section1_img5 from "@/assets/gallery/section1/Class_training (5).jpg";
+// import section1_img6 from "@/assets/gallery/section1/Class_training (6).jpg";
+// import section1_img7 from "@/assets/gallery/section1/Class_training (7).jpg";
+// import section1_img8 from "@/assets/gallery/section1/Class_training (8).jpg";
+// import section1_img9 from "@/assets/gallery/section1/Class_training (9).jpg";
+// import section1_img10 from "@/assets/gallery/section1/Class_training (10).jpg";
+// import section1_img11 from "@/assets/gallery/section1/Class_training (11).jpg";
+// import section1_img12 from "@/assets/gallery/section1/Class_training (12).jpg";
+
 /**
  * Gallery page
  * ... (component description)
@@ -182,8 +196,15 @@ const Gallery: React.FC = () => {
   const loadersSection2 = import.meta.glob("../assets/gallery/section2/**/*.{jpg,jpeg,png,webp,svg,JPG,JPEG,PNG,WEBP}");
   const section2Paths = Object.keys(loadersSection2).sort();
 
+  // ADD SECTION 1 LOADER (same as section2)
+  const loadersSection1 = import.meta.glob("../assets/gallery/section1/**/*.{jpg,jpeg,png,webp,svg,JPG,JPEG,PNG,WEBP}");
+  const section1Paths = Object.keys(loadersSection1).sort();
+
   // State to hold images for section2
   const [section2Images, setSection2Images] = useState<{ src: string; alt: string }[]>([]);
+
+  // ADD STATE FOR SECTION 1 IMAGES
+  const [section1Images, setSection1Images] = useState<{ src: string; alt: string }[]>([]);
 
   // Load all section2 images once and cache them in state
   useEffect(() => {
@@ -223,6 +244,51 @@ const Gallery: React.FC = () => {
         if (mounted) setSection2Images(imgs);
       } catch (e) {
         console.error("Failed to load section2 images:", e);
+      }
+    })();
+    return () => {
+      mounted = false;
+    };
+  }, []); // run once on mount
+
+  // ADD LOADER FOR SECTION 1 (same pattern as section2)
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      if (!mounted) return;
+      if (section1Paths.length === 0) {
+        setSection1Images([]);
+        return;
+      }
+      try {
+        // preload + mark loaded
+        const imgs = await Promise.all(
+          section1Paths.map(async (p) => {
+            const mod = await (loadersSection1 as any)[p]();
+            const src = (mod as any).default ?? mod;
+            // preload image so we can mark it loaded immediately
+            await new Promise<void>((resolve, reject) => {
+              const img = new Image();
+              img.onload = () => {
+                // mark caches so render logic treats this as loaded
+                loadedImagesCache.current.set(src, true);
+                setLoadedImages(prev => new Set(prev).add(src));
+                resolve();
+              };
+              img.onerror = () => {
+                // still resolve so one broken file doesn't block others
+                console.error("Failed to preload:", src);
+                resolve();
+              };
+              img.src = src;
+            });
+            const filename = p.split("/").pop() ?? "";
+            return { src, alt: filename.replace(/\.[^/.]+$/, "") };
+          })
+        );
+        if (mounted) setSection1Images(imgs);
+      } catch (e) {
+        console.error("Failed to load section1 images:", e);
       }
     })();
     return () => {
@@ -480,14 +546,8 @@ const Gallery: React.FC = () => {
     section1: {
       id: "section1",
       name: "Class",
-      images: [
-        { src: "", alt: "Training 1" },
-        { src: "", alt: "Training 2" },
-        { src: "", alt: "Training 3" },
-        { src: "", alt: "Training 4" },
-        { src: "", alt: "Training 5" },
-        { src: "", alt: "Training 6" },
-      ],
+      // images populated from src/assets/gallery/section1 via loadersSection1
+      images: section1Images,
     },
     section2: {
       id: "section2",
