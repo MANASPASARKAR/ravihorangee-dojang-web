@@ -48,7 +48,8 @@ const Index = () => {
             alt="Master Ravi Sir"
             className="w-full h-full object-cover opacity-20"
           /> */}
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-secondary/80"></div>
+                     <div className="absolute inset-0 bg-gradient-to-b from-primary/50 to-secondary/80 md:from-primary/80"></div>
+      
         </div>
         
         <div className="hero-content container mx-auto px-4">
@@ -88,67 +89,8 @@ const Index = () => {
       {/* Animated Counters */}
       <AnimatedCounters />
 
-      {/* Mobile Section Cards */}
-      <MobileSectionCards />
-
-      {/* Why Choose RB Horangee */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Why Choose RB Horangee Do-Jang?
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Excellence in martial arts education with a commitment to holistic development
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="martial-card text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-primary to-primary-glow rounded-full mx-auto mb-6 flex items-center justify-center">
-                <Shield className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-4">Discipline & Respect</h3>
-              <p className="text-muted-foreground">
-                Traditional values of martial arts cultivating self-discipline, respect, and moral character in all students.
-              </p>
-            </Card>
-            
-            <Card className="martial-card text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-secondary to-secondary-glow rounded-full mx-auto mb-6 flex items-center justify-center">
-                <Trophy className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-4">Confidence Building</h3>
-              <p className="text-muted-foreground">
-                Systematic training approach that builds physical strength, mental resilience, and unshakeable confidence.
-              </p>
-            </Card>
-            
-            <Card className="martial-card text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-primary to-primary-glow rounded-full mx-auto mb-6 flex items-center justify-center">
-                <Users className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-4">National Competitions</h3>
-              <p className="text-muted-foreground">
-                Host prestigious national tournaments and prepare students for competitive excellence at all levels.
-              </p>
-            </Card>
-            
-            <Card className="martial-card text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-secondary to-secondary-glow rounded-full mx-auto mb-6 flex items-center justify-center">
-                <Heart className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-4">Community Outreach</h3>
-              <p className="text-muted-foreground">
-                Active community engagement through CSR programs, workshops, and free self-defense classes.
-              </p>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Coach Spotlight */}
-      <section className="py-20 bg-gradient-to-r from-primary/5 to-secondary/5">
+      {/* Coach Spotlight - Moved to appear after Achievement Numbers and before Why Choose */}
+      <section className="py-20 bg-gradient-to-b from-primary/5 to-secondary/5 md:bg-gradient-to-r">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -193,6 +135,62 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Why Choose RB Horangee */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+              Why Choose RB Horangee Do-Jang?
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Excellence in martial arts education with a commitment to holistic development
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <Card className="martial-card text-center">
+              <div className="w-16 h-16 bg-gradient-to-b from-primary to-primary-glow md:bg-gradient-to-r rounded-full mx-auto mb-6 flex items-center justify-center">
+                <Shield className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-4">Discipline & Respect</h3>
+              <p className="text-muted-foreground">
+                Traditional values of martial arts cultivating self-discipline, respect, and moral character in all students.
+              </p>
+            </Card>
+            
+            <Card className="martial-card text-center">
+              <div className="w-16 h-16 bg-gradient-to-b from-secondary to-secondary-glow md:bg-gradient-to-r rounded-full mx-auto mb-6 flex items-center justify-center">
+                <Trophy className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-4">Confidence Building</h3>
+              <p className="text-muted-foreground">
+                Systematic training approach that builds physical strength, mental resilience, and unshakeable confidence.
+              </p>
+            </Card>
+            
+            <Card className="martial-card text-center">
+              <div className="w-16 h-16 bg-gradient-to-b from-primary to-primary-glow md:bg-gradient-to-r rounded-full mx-auto mb-6 flex items-center justify-center">
+                <Users className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-4">National Competitions</h3>
+              <p className="text-muted-foreground">
+                Host prestigious national tournaments and prepare students for competitive excellence at all levels.
+              </p>
+            </Card>
+            
+            <Card className="martial-card text-center">
+              <div className="w-16 h-16 bg-gradient-to-b from-secondary to-secondary-glow md:bg-gradient-to-r rounded-full mx-auto mb-6 flex items-center justify-center">
+                <Heart className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-4">Community Outreach</h3>
+              <p className="text-muted-foreground">
+                Active community engagement through CSR programs, workshops, and free self-defense classes.
+              </p>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Vision & Mission */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
@@ -219,6 +217,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Mobile Section Cards - Moved to appear after Vision & Mission */}
+      <MobileSectionCards />
 
       {/* Image Carousel */}
       <section className="py-20 bg-muted/30">
