@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Trophy, Medal, Star } from "lucide-react";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom"; // <<< ADD THIS IMPORT
 import heroImage from "@/assets/hero-coach.jpg";
 import clip1 from "../assets/Newspaper-clip/clip (1).jpg";
 import clip2 from "../assets/Newspaper-clip/clip (2).jpg";
@@ -13,8 +14,10 @@ import Footer from "@/components/Footer";
 
 const Achievements = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [showAllAchievements, setShowAllAchievements] = useState(false);
 
   const competitionImages = [
+    // ... (your images)
     { src: heroImage, alt: "National Championship 2024" },
     { src: heroImage, alt: "Regional Tournament 2024" },
     { src: heroImage, alt: "Youth Competition" },
@@ -24,6 +27,7 @@ const Achievements = () => {
   ];
 
   useEffect(() => {
+    // ... (your timer logic)
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % competitionImages.length);
     }, 4000);
@@ -31,37 +35,108 @@ const Achievements = () => {
   }, []);
 
   const achievements = [
+    // ... (your full list of 15 achievements)
     {
-      title: "1st TIA open International Championship, Kolkata",
+      title: "1st Open National championship",
+      year: "2016",
+      category: "Poomsae and Kyourogi",
+      recipient: "12 Gold, 5 Silver, 5 bronze",
+      description: "Organised By Horangee Taekwondo Academy, Pune"
+    },
+    {
+      title: "1st TIA open International Championship",
+      year: "2016",
+      category: "Poomsae and Kyourogi",
+      recipient: "2 gold, 2 silver, 2 bronze medals",
+      description: "Organised by TIA, Kolkata"
+    },
+    {
+      title: "7th India open Taekwondo cup",
       year: "2016",
       category: "Poomsae and Kyourogi",
       recipient: "8 gold, 12 silver, 12 bronze medals",
-      description: "First International Championship we played in"
+      description: "Organized by taekwondo board of Telengana, Hyderabad"
     },
     {
-      title: "Hyderabad",
-      year: "2016",
-      category: "Poomsae and Kyourogi",
-      recipient: "8 gold, 12 silver, 12 bronze medals",
-      description: "Lorem ipsum"
-    },
-    {
-      title: "1st Open National championship, Pune",
+      title: "2nd Open National championship",
       year: "2017",
       category: "Poomsae and Kyourogi",
-      recipient: "12 Gold, 12 Silver, 12 bronze",
-      description: "Recognized for outstanding contribution to martial arts"
+      recipient: "14 Gold, 8 Silver, 6 bronze",
+      description: "Organised By Horangee Taekwondo Academy, Pune"
     },
     {
-      title: "2nd Open National championship, Pune",
+      title: "2nd TIA open International Championship",
+      year: "2017",
+      category: "Poomsae and Kyourogi",
+      recipient: "3 silver, 3 bronze medals",
+      description: "Organised by TIA, Kolkata"
+    },
+    {
+      title: "3rd Open National championship",
       year: "2018",
+      category: "Poomsae and Kyourogi",
+      recipient: "20 Gold, 6 Silver, 6 bronze",
+      description: "Organised By Horangee Taekwondo Academy, Pune"
+    },
+    {
+      title: "3rd TIA open International Championship",
+      year: "2018",
+      category: "Poomsae and Kyourogi",
+      recipient: "2 gold, 1 silver, 13 bronze medals",
+      description: "Organised by TIA, Kolkata"
+    },
+    {
+      title: "4th Open National championship",
+      year: "2019",
+      category: "Poomsae and Kyourogi",
+      recipient: "22 Gold, 12 Silver, 6 bronze",
+      description: "Organised By Horangee Taekwondo Academy, Pune"
+    },
+    {
+      title: "4th TIA open International Championship",
+      year: "2019",
+      category: "Poomsae and Kyourogi",
+      recipient: "3 gold, 4 silver, 3 bronze medals",
+      description: "Organised by TIA, Kolkata"
+    },
+    {
+      title: "International Seoul Cup Open, Seoul",
+      year: "2022",
+      category: "Poomsae and Kyourogi",
+      recipient: "6 Gold, 9 Silver, 18 bronze",
+      description: "Organised by Kukkiwon, Seoul, South Korea"
+    },
+    {
+      title: "1st open National Taekwondo Championship",
+      year: "2023",
+      category: "Poomsae and Kyourogi",
+      recipient: "22 Gold, 16 Silver, 20 bronze",
+      description: "Organised By R.B. Horangee DO-Jang Association, Pune"
+    },
+    {
+      title: "16th International Open, Muju",
+      year: "2023",
+      category: "Poomsae and Kyourogi",
+      recipient: "18 Gold, 4 Silver, 15 bronze",
+      description: "Organised by Kukkiwon, Muju, South Korea"
+    },
+    {
+      title: "2nd open National Taekwondo Championship, Pune",
+      year: "2024",
+      category: "Poomsae and Kyourogi",
+      recipient: "42 Gold, 33 Silver, 18 bronze",
+      description: "Organised By R.B. Horangee DO-Jang Association, Pune"
+    },
+    {
+      title: "VIFA GENWINN India open national Taekwondo championship, Goa",
+      year: "2025",
       category: "Poomsae and Kyourogi",
       recipient: "12 Gold, 12 Silver, 12 bronze",
       description: "Recognized for outstanding contribution to martial arts"
     },
     {
-      title: "3rd Open National championship, Pune",
-      year: "2019",
+      title: "1st Asian international games, Hyderabad",
+      year: "2025",
       category: "Poomsae and Kyourogi",
       recipient: "12 Gold, 12 Silver, 12 bronze",
       description: "Recognized for outstanding contribution to martial arts"
@@ -69,33 +144,39 @@ const Achievements = () => {
   ];
 
   const competitions = [
+    // ... (your competitions)
     {
-      title: "RB Horangee National Open",
+      title: "1st Open National Taekwondo Championship",
       year: "2023",
       participants: "1100+",
-      description: "Annual national championship hosted by our academy"
+      description: "Venue - Vitthalanjan Lawns, Borate Nagar, Chandan Nagar, Pune"
     },
     {
-      title: "RB Horangee National Open",
+      title: "2nd Open National Taekwondo Championship",
       year: "2024",
       participants: "1300+",
-      description: "Annual national championship hosted by our academy"
+      description: "Venue - Vitthalanjan Lawns, Borate Nagar, Chandan Nagar, Pune"
     },
     {
-      title: "RB Horangee National Open",
+      title: "3rd Open National Taekwondo Championship",
       year: "2025",
       participants: "1700+",
-      description: "Annual national championship hosted by our academy"
+      description: "Venue - Ramchandra Sabhagruha, Somnath Nagar, Wadgaonsheri, Pune"
     }
   ];
 
   const newspaperClippings = [clip1, clip2, clip3];
+
+  const displayedAchievements = showAllAchievements
+    ? achievements
+    : achievements.slice(0, 4);
 
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
       <MobileNavigation />
 
+      {/* ... (hero section) ... */}
       <section className="pt-24 pb-16 bg-gradient-to-r from-primary/10 to-secondary/10">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
@@ -116,8 +197,10 @@ const Achievements = () => {
             </TabsList>
 
             <TabsContent value="achievements" className="space-y-8">
+              {/* ... (achievements grid) ... */}
               <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
-                {achievements.map((achievement, index) => (
+                
+                {displayedAchievements.map((achievement, index) => (
                   <Card key={index} className="martial-card">
                     <div className="flex items-start space-x-4">
                       <div className="w-12 h-12 bg-gradient-to-r from-primary to-primary-glow rounded-full flex items-center justify-center flex-shrink-0">
@@ -134,6 +217,19 @@ const Achievements = () => {
                 ))}
               </div>
 
+              {/* ... (achievements "Show More" button) ... */}
+              {achievements.length > 4 && (
+                <div className="text-center mt-8">
+                  <Button
+                    variant="outline"
+                    onClick={() => setShowAllAchievements(!showAllAchievements)}
+                  >
+                    {showAllAchievements ? "Show Less" : "Show More"}
+                  </Button>
+                </div>
+              )}
+
+              {/* ... (newspaper clippings) ... */}
               <div className="mt-12">
                 <h3 className="text-2xl font-bold text-center mb-8">Newspaper Clippings</h3>
                 <div className="grid md:grid-cols-3 gap-6">
@@ -149,10 +245,25 @@ const Achievements = () => {
                     </Card>
                   ))}
                 </div>
+
+                {/* <<< ADD THIS BUTTON SECTION >>> */}
+                <div className="text-center mt-8">
+                  <Button asChild variant="outline">
+                    <Link 
+                      to="/gallery" 
+                      state={{ defaultSection: "section2" }}
+                    >
+                      View All Clippings
+                    </Link>
+                  </Button>
+                </div>
+                {/* <<< END OF NEW SECTION >>> */}
+
               </div>
             </TabsContent>
 
             <TabsContent value="competitions" className="space-y-8">
+              {/* ... (rest of competitions tab content) ... */}
               <div className="grid md:grid-cols-2 gap-8">
                 {competitions.map((competition, index) => (
                   <Card key={index} className="martial-card">
@@ -171,11 +282,11 @@ const Achievements = () => {
               </div>
 
               <section className="py-12 bg-muted/30 rounded-xl">
+                {/* ... (competition glimpses slider) ... */}
                 <div className="container mx-auto px-4">
                   <h3 className="text-3xl font-bold text-center text-foreground mb-12">
                     Competition Glimpses
                   </h3>
-
                   <div className="max-w-4xl mx-auto relative">
                     <div className="aspect-video rounded-2xl overflow-hidden relative">
                       <img
@@ -190,7 +301,6 @@ const Achievements = () => {
                         </h3>
                       </div>
                     </div>
-
                     <div className="flex justify-center space-x-2 mt-6">
                       {competitionImages.map((_, index) => (
                         <button
@@ -214,4 +324,4 @@ const Achievements = () => {
   );
 };
 
-export default Achievements;``
+export default Achievements;

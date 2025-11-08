@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom"; // <<< ADD THIS IMPORT
 import { Card } from "@/components/ui/card";
 import { Camera } from "lucide-react";
 import Navigation from "@/components/Navigation";
@@ -7,27 +8,20 @@ import Footer from "@/components/Footer";
 
 /**
  * Gallery page
- *
- * - Loads gallery images in batches (lazy import.meta.glob + IntersectionObserver)
- * - Displays a mobile-first section selector where the active section expands and
- * inactive sections collapse to small circular buttons.
- * - Images fill cards edge-to-edge, use native lazy loading & async decoding.
- *
- * All code is contained in this file per requirements.
+ * ... (component description)
  */
 
 /* ---------------------------
    Internal SectionTabs component
    ---------------------------
-   - Mobile-first: collapsed = 40px, active expands.
-   - Keyboard accessible (Left/Right/Home/End, Enter/Space).
-   - Emits onChange with selected section id.
+   ... (all of your SectionTabs component code - NO CHANGES NEEDED HERE)
 */
 const SectionTabs: React.FC<{
   sections: { id: string; title: string; icon?: React.ReactNode }[];
   value: string;
   onChange: (id: string) => void;
 }> = ({ sections, value, onChange }) => {
+  // ... (all the code for SectionTabs)
   const listRef = useRef<HTMLDivElement | null>(null);
   const buttonsRef = useRef<Array<HTMLButtonElement | null>>([]);
 
@@ -144,13 +138,21 @@ const SectionTabs: React.FC<{
   );
 };
 
+
 /* ---------------------------
    Gallery component
    --------------------------- */
 const Gallery: React.FC = () => {
-  const [activeSection, setActiveSection] = useState<string>("section1");
+  // <<< ADD THIS HOOK >>>
+  const location = useLocation();
+
+  // <<< UPDATE THIS STATE INITIALIZATION >>>
+  const [activeSection, setActiveSection] = useState<string>(
+    location.state?.defaultSection || "section1"
+  );
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
+  // ... (rest of your state and functions)
   // batching lazy-load state
   const [galleryImages, setGalleryImages] = useState<{ src: string; alt: string }[]>([]);
   const [allLoaded, setAllLoaded] = useState(false);
@@ -188,6 +190,7 @@ const Gallery: React.FC = () => {
   
   // load a single batch (startIndex)
   const loadBatch = async (startIndex: number) => {
+    // ... (rest of your loadBatch function)
     const slice = paths.slice(startIndex, startIndex + BATCH_SIZE);
     if (slice.length === 0) {
       setAllLoaded(true);
@@ -295,6 +298,7 @@ const Gallery: React.FC = () => {
 
   // This is the function that does the work
   const loadMoreImages = async () => {
+    // ... (rest of your loadMoreImages function)
     // 1. Prevent double-loads
     if (isLoadingRef.current || allLoaded) return;
   
@@ -336,6 +340,7 @@ const Gallery: React.FC = () => {
 
   // initial batch load (Loads first 12 images)
   useEffect(() => {
+    // ... (rest of your useEffect)
     let mounted = true;
     (async () => {
       if (!mounted) return;
@@ -351,6 +356,7 @@ const Gallery: React.FC = () => {
 
   // This new effect handles the "load more" on scroll
   useEffect(() => {
+    // ... (rest of your useEffect)
     // If we're not on section3, or if all images are loaded, do nothing.
     if (activeSection !== 'section3' || allLoaded) {
       return;
@@ -399,6 +405,7 @@ const Gallery: React.FC = () => {
     
   }, [activeSection, allLoaded]); // Dependencies are correct
 
+
   // gallery categories: section3 uses lazy-loaded images
   const galleryCategories = {
     section1: {
@@ -440,6 +447,7 @@ const Gallery: React.FC = () => {
 
   // Modified renderGalleryGrid with better loading text positioning
   const renderGalleryGrid = (images: { src: string; alt: string }[]) => {
+    // ... (rest of your renderGalleryGrid function)
     const rowSize = getRowSize();
     const rows = images.reduce((acc, img, i) => {
       const rowIndex = Math.floor(i / rowSize);
