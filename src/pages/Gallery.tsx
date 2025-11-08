@@ -1,33 +1,41 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom"; // <<< ADD THIS IMPORT
 import { Card } from "@/components/ui/card";
 import { Camera } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import MobileNavigation from "@/components/MobileNavigation";
 import Footer from "@/components/Footer";
 
+// ADD THESE IMPORT STATEMENTS FOR SECTION 1 IMAGES
+// import section1_img1 from "@/assets/gallery/section1/Class_training (1).jpg";
+// import section1_img2 from "@/assets/gallery/section1/Class_training (2).jpg";
+// import section1_img3 from "@/assets/gallery/section1/Class_training (3).jpg";
+// import section1_img4 from "@/assets/gallery/section1/Class_training (4).jpg";
+// import section1_img5 from "@/assets/gallery/section1/Class_training (5).jpg";
+// import section1_img6 from "@/assets/gallery/section1/Class_training (6).jpg";
+// import section1_img7 from "@/assets/gallery/section1/Class_training (7).jpg";
+// import section1_img8 from "@/assets/gallery/section1/Class_training (8).jpg";
+// import section1_img9 from "@/assets/gallery/section1/Class_training (9).jpg";
+// import section1_img10 from "@/assets/gallery/section1/Class_training (10).jpg";
+// import section1_img11 from "@/assets/gallery/section1/Class_training (11).jpg";
+// import section1_img12 from "@/assets/gallery/section1/Class_training (12).jpg";
+
 /**
  * Gallery page
- *
- * - Loads gallery images in batches (lazy import.meta.glob + IntersectionObserver)
- * - Displays a mobile-first section selector where the active section expands and
- * inactive sections collapse to small circular buttons.
- * - Images fill cards edge-to-edge, use native lazy loading & async decoding.
- *
- * All code is contained in this file per requirements.
+ * ... (component description)
  */
 
 /* ---------------------------
    Internal SectionTabs component
    ---------------------------
-   - Mobile-first: collapsed = 40px, active expands.
-   - Keyboard accessible (Left/Right/Home/End, Enter/Space).
-   - Emits onChange with selected section id.
+   ... (all of your SectionTabs component code - NO CHANGES NEEDED HERE)
 */
 const SectionTabs: React.FC<{
   sections: { id: string; title: string; icon?: React.ReactNode }[];
   value: string;
   onChange: (id: string) => void;
 }> = ({ sections, value, onChange }) => {
+  // ... (all the code for SectionTabs)
   const listRef = useRef<HTMLDivElement | null>(null);
   const buttonsRef = useRef<Array<HTMLButtonElement | null>>([]);
 
@@ -144,13 +152,21 @@ const SectionTabs: React.FC<{
   );
 };
 
+
 /* ---------------------------
    Gallery component
    --------------------------- */
 const Gallery: React.FC = () => {
-  const [activeSection, setActiveSection] = useState<string>("section1");
+  // <<< ADD THIS HOOK >>>
+  const location = useLocation();
+
+  // <<< UPDATE THIS STATE INITIALIZATION >>>
+  const [activeSection, setActiveSection] = useState<string>(
+    location.state?.defaultSection || "section1"
+  );
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
+  // ... (rest of your state and functions)
   // batching lazy-load state
   const [galleryImages, setGalleryImages] = useState<{ src: string; alt: string }[]>([]);
   const [allLoaded, setAllLoaded] = useState(false);
@@ -180,8 +196,15 @@ const Gallery: React.FC = () => {
   const loadersSection2 = import.meta.glob("../assets/gallery/section2/**/*.{jpg,jpeg,png,webp,svg,JPG,JPEG,PNG,WEBP}");
   const section2Paths = Object.keys(loadersSection2).sort();
 
+  // ADD SECTION 1 LOADER (same as section2)
+  const loadersSection1 = import.meta.glob("../assets/gallery/section1/**/*.{jpg,jpeg,png,webp,svg,JPG,JPEG,PNG,WEBP}");
+  const section1Paths = Object.keys(loadersSection1).sort();
+
   // State to hold images for section2
   const [section2Images, setSection2Images] = useState<{ src: string; alt: string }[]>([]);
+
+  // ADD STATE FOR SECTION 1 IMAGES
+  const [section1Images, setSection1Images] = useState<{ src: string; alt: string }[]>([]);
 
   // Load all section2 images once and cache them in state
   useEffect(() => {
@@ -228,6 +251,51 @@ const Gallery: React.FC = () => {
     };
   }, []); // run once on mount
 
+  // ADD LOADER FOR SECTION 1 (same pattern as section2)
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      if (!mounted) return;
+      if (section1Paths.length === 0) {
+        setSection1Images([]);
+        return;
+      }
+      try {
+        // preload + mark loaded
+        const imgs = await Promise.all(
+          section1Paths.map(async (p) => {
+            const mod = await (loadersSection1 as any)[p]();
+            const src = (mod as any).default ?? mod;
+            // preload image so we can mark it loaded immediately
+            await new Promise<void>((resolve, reject) => {
+              const img = new Image();
+              img.onload = () => {
+                // mark caches so render logic treats this as loaded
+                loadedImagesCache.current.set(src, true);
+                setLoadedImages(prev => new Set(prev).add(src));
+                resolve();
+              };
+              img.onerror = () => {
+                // still resolve so one broken file doesn't block others
+                console.error("Failed to preload:", src);
+                resolve();
+              };
+              img.src = src;
+            });
+            const filename = p.split("/").pop() ?? "";
+            return { src, alt: filename.replace(/\.[^/.]+$/, "") };
+          })
+        );
+        if (mounted) setSection1Images(imgs);
+      } catch (e) {
+        console.error("Failed to load section1 images:", e);
+      }
+    })();
+    return () => {
+      mounted = false;
+    };
+  }, []); // run once on mount
+
   // --- SECTIONED PATHS: map files to section folders (expects folders named 'section1','section2','section3') ---
   const sectionPaths: Record<string, string[]> = {
     section1: paths.filter((p) => p.includes("/section1/")),
@@ -257,6 +325,7 @@ const Gallery: React.FC = () => {
   
   // load a single batch (startIndex)
   const loadBatch = async (startIndex: number) => {
+    // ... (rest of your loadBatch function)
     const slice = paths.slice(startIndex, startIndex + BATCH_SIZE);
     if (slice.length === 0) {
       setAllLoaded(true);
@@ -364,6 +433,7 @@ const Gallery: React.FC = () => {
 
   // This is the function that does the work
   const loadMoreImages = async () => {
+    // ... (rest of your loadMoreImages function)
     // 1. Prevent double-loads
     if (isLoadingRef.current || allLoaded) return;
   
@@ -405,6 +475,7 @@ const Gallery: React.FC = () => {
 
   // initial batch load (Loads first 12 images)
   useEffect(() => {
+    // ... (rest of your useEffect)
     let mounted = true;
     (async () => {
       if (!mounted) return;
@@ -420,6 +491,7 @@ const Gallery: React.FC = () => {
 
   // This new effect handles the "load more" on scroll
   useEffect(() => {
+    // ... (rest of your useEffect)
     // If we're not on section3, or if all images are loaded, do nothing.
     if (activeSection !== 'section3' || allLoaded) {
       return;
@@ -468,19 +540,14 @@ const Gallery: React.FC = () => {
     
   }, [activeSection, allLoaded]); // Dependencies are correct
 
+
   // gallery categories: section3 uses lazy-loaded images
   const galleryCategories = {
     section1: {
       id: "section1",
       name: "Class",
-      images: [
-        { src: "", alt: "Training 1" },
-        { src: "", alt: "Training 2" },
-        { src: "", alt: "Training 3" },
-        { src: "", alt: "Training 4" },
-        { src: "", alt: "Training 5" },
-        { src: "", alt: "Training 6" },
-      ],
+      // images populated from src/assets/gallery/section1 via loadersSection1
+      images: section1Images,
     },
     section2: {
       id: "section2",
@@ -503,6 +570,7 @@ const Gallery: React.FC = () => {
 
   // Modified renderGalleryGrid with better loading text positioning
   const renderGalleryGrid = (images: { src: string; alt: string }[]) => {
+    // ... (rest of your renderGalleryGrid function)
     const rowSize = getRowSize();
     const rows = images.reduce((acc, img, i) => {
       const rowIndex = Math.floor(i / rowSize);
