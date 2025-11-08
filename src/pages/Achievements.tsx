@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Trophy, Medal, Star } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // <<< ADD THIS IMPORT
+import { Link } from "react-router-dom"; 
 import heroImage from "@/assets/hero-coach.jpg";
 import clip1 from "../assets/Newspaper-clip/clip (1).jpg";
 import clip2 from "../assets/Newspaper-clip/clip (2).jpg";
@@ -17,7 +17,6 @@ const Achievements = () => {
   const [showAllAchievements, setShowAllAchievements] = useState(false);
 
   const competitionImages = [
-    // ... (your images)
     { src: heroImage, alt: "National Championship 2024" },
     { src: heroImage, alt: "Regional Tournament 2024" },
     { src: heroImage, alt: "Youth Competition" },
@@ -27,7 +26,6 @@ const Achievements = () => {
   ];
 
   useEffect(() => {
-    // ... (your timer logic)
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % competitionImages.length);
     }, 4000);
@@ -35,7 +33,7 @@ const Achievements = () => {
   }, []);
 
   const achievements = [
-    // ... (your full list of 15 achievements)
+    // ... (full list of 15 achievements)
     {
       title: "1st Open National championship",
       year: "2016",
@@ -144,7 +142,7 @@ const Achievements = () => {
   ];
 
   const competitions = [
-    // ... (your competitions)
+    // ... (full list of competitions)
     {
       title: "1st Open National Taekwondo Championship",
       year: "2023",
@@ -217,12 +215,13 @@ const Achievements = () => {
                 ))}
               </div>
 
-              {/* ... (achievements "Show More" button) ... */}
+              {/* <<< "SHOW MORE" BUTTON UPDATED >>> */}
               {achievements.length > 4 && (
                 <div className="text-center mt-8">
                   <Button
                     variant="outline"
                     onClick={() => setShowAllAchievements(!showAllAchievements)}
+                    className="transition-all duration-200 hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-0.5"
                   >
                     {showAllAchievements ? "Show Less" : "Show More"}
                   </Button>
@@ -246,9 +245,13 @@ const Achievements = () => {
                   ))}
                 </div>
 
-                {/* <<< ADD THIS BUTTON SECTION >>> */}
+                {/* <<< "VIEW ALL" BUTTON UPDATED >>> */}
                 <div className="text-center mt-8">
-                  <Button asChild variant="outline">
+                  <Button 
+                    asChild 
+                    variant="outline"
+                    className="transition-all duration-200 hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-0.5"
+                  >
                     <Link 
                       to="/gallery" 
                       state={{ defaultSection: "section2" }}
@@ -257,7 +260,6 @@ const Achievements = () => {
                     </Link>
                   </Button>
                 </div>
-                {/* <<< END OF NEW SECTION >>> */}
 
               </div>
             </TabsContent>
@@ -282,11 +284,11 @@ const Achievements = () => {
               </div>
 
               <section className="py-12 bg-muted/30 rounded-xl">
-                {/* ... (competition glimpses slider) ... */}
                 <div className="container mx-auto px-4">
                   <h3 className="text-3xl font-bold text-center text-foreground mb-12">
                     Competition Glimpses
                   </h3>
+
                   <div className="max-w-4xl mx-auto relative">
                     <div className="aspect-video rounded-2xl overflow-hidden relative">
                       <img
@@ -300,7 +302,10 @@ const Achievements = () => {
                           {competitionImages[currentSlide].alt}
                         </h3>
                       </div>
+
+                      
                     </div>
+
                     <div className="flex justify-center space-x-2 mt-6">
                       {competitionImages.map((_, index) => (
                         <button
