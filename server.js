@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 import cors from 'cors';
 
 const allowedOrigins = [
-  'https://rb-horangee-do-jang.vercel.app/',
+  'https://rb-horangee-do-jang.vercel.app',
   'http://localhost:3000',
 ];
 
