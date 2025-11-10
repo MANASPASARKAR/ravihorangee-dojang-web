@@ -68,23 +68,25 @@ app.post('/api/send', async (req, res) => {
 
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
-      auth: {
-        user: emailUser,
-        pass: emailPass
-      },
-      // fail fast if Gmail is unreachable instead of hanging
-      connectionTimeout: 10000, // 10s
-      socketTimeout: 10000 // 10s
+      port: 587,            // STARTTLS
+      secure: false,        // upgrade via STARTTLS
+      requireTLS: true,
+      auth: { user: emailUser, pass: emailPass }, // EMAIL_USER = your gmail, EMAIL_PASS = 16‑char app password
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 10000,
+      family: 4,            // force IPv4
+      logger: true,
+      debug: true,
+      tls: { servername: 'smtp.gmail.com', rejectUnauthorized: true }
     });
 
     // Verify transporter connection
     try {
       await transporter.verify();
-      console.log('SMTP transporter verified');
+      console.log('SMTP verify completed');
     } catch (e) {
-      console.warn('SMTP verify failed (continuing):', e?.message);
+      console.warn('SMTP verify failed:', e?.message);
     }
 
     await transporter.sendMail({
