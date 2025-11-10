@@ -1,6 +1,7 @@
 import express from 'express';
-import nodemailer from 'nodemailer';
+// import nodemailer from 'nodemailer';
 import cors from 'cors';
+import sgMail from '@sendgrid/mail';
 
 const allowedOrigins = [
   'https://rb-horangee-do-jang.vercel.app',
@@ -20,6 +21,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
+sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
 
 app.options('/api/send', cors());
 
@@ -35,7 +37,7 @@ app.get('/', (req, res) => {
 app.get('/health', (req, res) => {
   res.json({ 
     status: 'ok',
-    emailConfigured: !!(process.env.EMAIL_USER && process.env.EMAIL_PASS)
+    sendgridConfigured: !!(process.env.SENDGRID_API_KEY)
   });
 });
 
@@ -52,47 +54,24 @@ app.post('/api/send', async (req, res) => {
     }
 
     // Get credentials from environment variables
-    const emailUser = process.env.EMAIL_USER;
-    const emailPass = process.env.EMAIL_PASS;
-
-    if (!emailUser || !emailPass) {
-      console.error('Missing environment variables:', {
-        hasEmailUser: !!emailUser,
-        hasEmailPass: !!emailPass
+    const fromEmail = process.env.FROM_EMAIL;
+    const sgApiKey = process.env.SENDGRID_API_KEY;
+    
+    if (!fromEmail || !sgApiKey) {
+      console.error('Missing SendGrid configuration:', {
+        hasFromEmail: !!fromEmail,
+        hasApiKey: !!sgApiKey
       });
       return res.status(500).json({ 
         success: false, 
-        error: 'Email configuration not set up properly. Please check environment variables.' 
+        error: 'Email configuration not set up properly. Please check SENDGRID_API_KEY and FROM_EMAIL.' 
       });
     }
 
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 587,            // STARTTLS
-      secure: false,        // upgrade via STARTTLS
-      requireTLS: true,
-      auth: { user: emailUser, pass: emailPass }, // EMAIL_USER = your gmail, EMAIL_PASS = 16‑char app password
-      connectionTimeout: 10000,
-      greetingTimeout: 10000,
-      socketTimeout: 10000,
-      family: 4,            // force IPv4
-      logger: true,
-      debug: true,
-      tls: { servername: 'smtp.gmail.com', rejectUnauthorized: true }
-    });
-
-    // Verify transporter connection
-    try {
-      await transporter.verify();
-      console.log('SMTP verify completed');
-    } catch (e) {
-      console.warn('SMTP verify failed:', e?.message);
-    }
-
-    await transporter.sendMail({
-      from: `"${name}" <${emailUser}>`,
-      replyTo: email,
+    await sgMail.send({
       to: 'rbhorangee@gmail.com',
+      from: { email: fromEmail, name }, // show submitter name
+      replyTo: email,
       subject: 'New Form Submission',
       text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
       html: `
@@ -103,9 +82,10 @@ app.post('/api/send', async (req, res) => {
         <p>${message.replace(/\n/g, '<br>')}</p>
       `
     });
-
+    
     console.log('Email sent successfully');
     res.status(200).json({ success: true });
+
   } catch (err) {
     console.error('Email error:', err);
     res.status(500).json({ 
@@ -120,7 +100,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`Environment variables check:`, {
-    hasEmailUser: !!process.env.EMAIL_USER,
-    hasEmailPass: !!process.env.EMAIL_PASS
+    hasFromEmail: !!process.env.FROM_EMAIL,
+    hasApiKey: !!process.env.SENDGRID_API_KEY
   });
 });
