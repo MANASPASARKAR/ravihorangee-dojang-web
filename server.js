@@ -69,8 +69,9 @@ app.post('/api/send', async (req, res) => {
     }
 
     await sgMail.send({
-      to: 'rbhorangee@gmail.com',
-      from: { email: fromEmail, name }, // show submitter name
+      to: process.env.RECIPIENT_EMAIL, // single recipient
+      // For multiple, use: to: process.env.RECIPIENT_EMAIL.split(',').map(s => s.trim()),
+      from: { email: fromEmail, name }, // shows submitter name
       replyTo: email,
       subject: 'New Form Submission',
       text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
@@ -82,9 +83,6 @@ app.post('/api/send', async (req, res) => {
         <p>${message.replace(/\n/g, '<br>')}</p>
       `
     });
-    
-    console.log('Email sent successfully');
-    res.status(200).json({ success: true });
 
   } catch (err) {
     console.error('Email error:', err);
