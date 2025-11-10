@@ -21,7 +21,7 @@ app.use(cors({
 
 app.use(express.json());
 
-app.options('*', cors());
+app.options('/api/send', cors());
 
 // Test route to verify server is running
 app.get('/', (req, res) => {
