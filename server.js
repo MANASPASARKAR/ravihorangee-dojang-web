@@ -2,9 +2,26 @@ import express from 'express';
 import nodemailer from 'nodemailer';
 import cors from 'cors';
 
+const allowedOrigins = [
+  'https://rb-horangee-do-jang.vercel.app/',
+  'http://localhost:3000',
+];
+
 const app = express();
-app.use(cors());
+
+app.use(cors({
+  origin: (origin, cb) => {
+    if (!origin) return cb(null, true); // allow curl/postman
+    const ok = allowedOrigins.includes(origin) || /\.vercel\.app$/.test(origin);
+    cb(ok ? null : new Error('Not allowed by CORS'), ok);
+  },
+  methods: ['POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type'],
+}));
+
 app.use(express.json());
+
+app.options('*', cors());
 
 // Test route to verify server is running
 app.get('/', (req, res) => {
